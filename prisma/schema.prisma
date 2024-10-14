@@ -20,3 +20,17 @@ model Users {
   password String
   token    String?
 }
+
+model Category {
+  id       String    @id @default(cuid())
+  name     String
+  products Product[]
+}
+
+model Product {
+  id         String   @id @default(cuid())
+  name       String
+  price      Float
+  categoryId String
+  category   Category @relation(fields: [categoryId], references: [id])
+}
