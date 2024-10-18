@@ -7,6 +7,8 @@ const cors = require("cors");
 const authRoutes = require("./routes/auth");
 const categoryRoutes = require("./routes/category");
 const productRoutes = require("./routes/product");
+const usersRoutes = require("./routes/users");
+const prisma = require("./prismaClient");
 
 const app = express();
 
@@ -21,6 +23,12 @@ app.use("/api/categories", categoryRoutes);
 
 // Product routes
 app.use("/api/products", productRoutes);
+
+// User routes
+app.use("/api/users", usersRoutes);
+
+// User Get All Routes
+app.use("/api/users:id", usersRoutes);
 
 const PORT = process.env.PORT || 3000;
 

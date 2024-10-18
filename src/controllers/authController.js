@@ -7,7 +7,7 @@ const generateToken = require("../utils/generateToken");
 
 // Registration logic
 exports.register = async (req, res) => {
-    const { name, email, password } = req.body;
+    const { name, email, image, password } = req.body;
 
     if (!name || !email || !password) {
         return res.status(400).json({ error: "All fields are required" });
@@ -28,6 +28,7 @@ exports.register = async (req, res) => {
             data: {
                 name,
                 email,
+                image: image || null,
                 password: hashedPassword,
             },
         });
@@ -66,7 +67,11 @@ exports.login = async (req, res) => {
 
         const token = generateToken(user.id, user.email);
 
-        res.status(200).json({ message: "Login successful", token });
+        res.status(200).json({
+            message: "Login successful",
+            token,
+            user: { id: user.id, name: user.name, email: user.email, image: user.image || null }, // Kirim gambar profil
+        });
     } catch (error) {
         console.error("Error during login:", error);
         res.status(500).json({ error: "Internal Server Error" });

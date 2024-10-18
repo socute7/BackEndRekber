@@ -17,6 +17,7 @@ model Users {
   id       String  @id @default(cuid())
   name     String
   email    String
+  image    String?
   password String
   token    String?
 }
@@ -24,13 +25,16 @@ model Users {
 model Category {
   id       String    @id @default(cuid())
   name     String
+  image    String
   products Product[]
 }
 
 model Product {
-  id         String   @id @default(cuid())
-  name       String
-  price      Float
-  categoryId String
-  category   Category @relation(fields: [categoryId], references: [id])
+  id          String   @id @default(cuid())
+  name        String
+  price       Float
+  image       String
+  description String
+  categoryId  String
+  category    Category @relation(fields: [categoryId], references: [id])
 }
